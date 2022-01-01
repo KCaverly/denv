@@ -1,0 +1,16 @@
+- name: Install Neovim
+  shell: "add-apt-repository ppa:neovim-ppa/unstable && sudo apt-get update && sudo apt-get install -y neovim"
+  tags:
+    - neovim
+
+- name: Install Packer
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.git:
+    repo: 'git@github.com:wbthomason/packer.nvim.git'
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    update: yes
+    accept_hostkey: yes
+    version: master
+  tags:
+    - neovim

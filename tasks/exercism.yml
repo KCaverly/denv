@@ -1,0 +1,26 @@
+- name: Get list of available exercism.io Binaries
+  tags:
+  - exercism
+  uri:
+    url: https://api.github.com/repos/exercism/cli/releases/latest
+    return_content: true
+  register: exercism_latest
+
+- name: "Installing Exercism: {{ exercism_latest.json.tag_name}}"
+  tags:
+  - exercism
+  loop: "{{ exercism_latest.json.assets }}"
+  when: "'exercism-linux-64bit.tgz' in item.name"
+  get_url:
+    url: "{{ item.browser_download_url }}"
+    dest: "{{ lookup('env', 'HOME') }}"
+
+- name: Extracting Exercism
+  tags:
+  - exercism
+  shell: "tar -xf {{ lookup('env', 'HOME') }}/exercism-linux-64bit.tgz -C /usr/local/bin"
+
+- name: Cleanup
+  tags:
+  - exercism
+  shell: "rm -r {{ lookup('env', 'HOME') }}/exercism-linux-64bit.tgz"

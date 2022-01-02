@@ -11,7 +11,10 @@
         - node
         - zsh
   tasks: 
+  - include: tasks/core.yml
+  - include: tasks/exercism.yml
   - include: tasks/ssh.yml
+  - include: tasks/git.yml
   - include: tasks/zsh.yml  
   - include: tasks/dotfiles.yml
   - include: tasks/nvim.yml

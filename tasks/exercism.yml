@@ -6,7 +6,7 @@
     return_content: true
   register: exercism_latest
 
-- name: "Installing Exercism: {{ exercism_latest.json.tag_name}}"
+- name: "Installing Exercism: {{ exercism_latest.json.tag_name }}"
   tags:
   - exercism
   loop: "{{ exercism_latest.json.assets }}"
@@ -24,3 +24,25 @@
   tags:
   - exercism
   shell: "rm -r {{ lookup('env', 'HOME') }}/exercism-linux-64bit.tgz"
+
+- name: Configure exercism
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  tags:
+  - exercism
+  shell: "exercism configure --token={{ exercism_token }} --workspace={{ lookup('env', 'HOME') }}/personal/exercism"
+  register: test
+
+- name: Cloning exercism repo
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.git:
+    repo: 'git@github.com:KCaverly/exercism.git'
+    dest: "{{ lookup('env', 'HOME') }}/personal/exercism"
+    recursive: yes
+    update: yes
+    version: master
+    accept_hostkey: true
+    key_file: "{{ dest_key }}"
+  tags:
+  - exercism

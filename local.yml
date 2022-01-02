@@ -2,6 +2,14 @@
   vars:
     source_key: "./.ssh/id_rsa"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+    exercism_token: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          66356130643163306437633766353833303536626437633662666564303433376135633438633032
+          3032666130643862663963633733656438373536383663300a373030323333653163613563363163
+          61303632333838626135333035393637343438396638633565326439373162326461633030326665
+          6237353834303365330a623830383964363163313363323732393232353536616632623931373432
+          38626566663936343531666433613935653339643339373931626530666530316534373739663838
+          6366323039313231393264363237346565636234306137633735
   become: true
   pre_tasks:
     - name: Update cache
@@ -12,9 +20,9 @@
         - zsh
   tasks: 
   - include: tasks/core.yml
-  - include: tasks/exercism.yml
   - include: tasks/ssh.yml
   - include: tasks/git.yml
+  - include: tasks/exercism.yml
   - include: tasks/zsh.yml  
   - include: tasks/dotfiles.yml
   - include: tasks/nvim.yml

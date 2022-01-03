@@ -1,0 +1,37 @@
+- name: Make nix directory
+  tags:
+    - emanote
+  shell: "mkdir {{ lookup('env', 'HOME') }}/nix"
+- name: Install nix
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  tags:
+    - emanote
+  shell: "curl -L https://nixos.org/nix/install | sh && . {{ lookup('env', 'HOME') }}/.nix-profile/etc/profile.d/nix.sh"
+- name: Configure nix & Install Emanote
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  tags:
+    - emanote
+  shell: ". {{ lookup('env', 'HOME') }}/.nix-profile/etc/profile.d/nix.sh && nix-env -if https://github.com/srid/emanote/archive/refs/heads/master.tar.gz"
+- name: Move emanote to usr/local/bin
+  tags:
+    - emanote
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/.nix-profile/bin/emanote"
+    dest: "/usr/local/bin/emanote"
+    owner: "{{ lookup('env', 'USER') }}"
+    mode: +x
+- name: Clone Knowledge Base
+  tags:
+    - emanote
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.git:
+    repo: 'git@github.com:KCaverly/kb.git'
+    dest: "{{ lookup('env', 'HOME') }}/personal/kb"
+    recursive: yes
+    update: yes
+    version: master
+    accept_hostkey: true
+    key_file: "{{ dest_key }}"

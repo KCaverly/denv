@@ -6,6 +6,7 @@
     owner: "{{ lookup('env', 'USER') }}"
   tags:
     - ssh
+    - emanote
 - name: Install ssh key
   copy:
     src: "{{ source_key }}"
@@ -14,6 +15,7 @@
     owner: "{{ lookup('env', 'USER') }}"
   tags:
     - ssh
+    - emanote
 - name: Install ssh key public
   copy:
     src: "{{ source_key }}.pub"
@@ -22,3 +24,4 @@
     owner: "{{ lookup('env', 'USER') }}"
   tags:
     - ssh
+    - emanote

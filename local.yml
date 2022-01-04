@@ -85,3 +85,10 @@
       - install
       - emanote
 
+  - name: tools
+    include_tasks: tasks/tools.yml
+    tags:
+      - install
+      - tools
+      - docker
+      - git

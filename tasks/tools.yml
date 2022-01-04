@@ -1,0 +1,9 @@
+- name: Tools | Install lazydocker
+  tags: [ install, tools, docker ]
+  shell: curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
+- name: Tools | Install gitui
+  tags: [ install, tools, git ]
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: nix-env -iA nixpkgs.gitui

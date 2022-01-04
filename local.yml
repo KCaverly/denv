@@ -31,6 +31,12 @@
       - install
       - ssh
 
+  - name: python
+    include_tasks: tasks/python.yml
+    tags:
+      - install
+      - python
+
   - name: git
     include_tasks: tasks/git.yml
     tags:
@@ -60,6 +66,12 @@
     tags:
       - install
       - nvim
+
+  - name: rust
+    include_tasks: tasks/rust.yml
+    tags:
+      - install
+      - rust
 
   - name: exercism.io
     include_tasks: tasks/exercism.yml

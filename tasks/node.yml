@@ -8,6 +8,7 @@
   npm: 
     name: n
     global: true
+
 - name: Install node version 14
   tags: [ install, node ]
   shell: n 14

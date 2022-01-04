@@ -1,0 +1,11 @@
+- name: Python | Install python
+  tags: [ install, python ]
+  shell: apt install python3 && apt autoremove
+
+- name: Python | Install poetry
+  tags: [ install, python, poetry ]
+  shell: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+
+- name: Python | Install pyright
+  tags: [ install, python, lsp ]
+  shell: npm install --global pyright

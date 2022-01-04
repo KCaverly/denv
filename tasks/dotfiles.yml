@@ -1,9 +1,5 @@
-- name: Installing stow
-  apt: name=stow
-  tags:
-    - dotfiles
-    - stow
 - name: Cloning .dotfiles
+  tags: [ install, dotfiles ]
   become: yes
   become_user: "{{ lookup('env', 'USER') }}"
   ansible.builtin.git:
@@ -14,13 +10,9 @@
     version: main
     accept_hostkey: true
     key_file: "{{ dest_key }}"
-  tags:
-    - dotfiles
-    - stow
+      
 - name: Stow dotfiles
+  tags: [ install, dotfiles ]
   shell: cd $HOME/.dotfiles && chmod +x ./ubuntu && chmod +x ./install && ./ubuntu
   become: yes
   become_user: "{{ lookup('env', 'USER') }}"
-  tags:
-    - dotfiles
-    - stow

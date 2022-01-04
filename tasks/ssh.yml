@@ -1,27 +1,23 @@
 - name: Ensure .ssh directory exists.
+  tags: [ install, ssh ]
   file:
     dest: "{{ dest_key | dirname }}"
     mode: 0700
     state: directory
     owner: "{{ lookup('env', 'USER') }}"
-  tags:
-    - ssh
-    - emanote
+      
 - name: Install ssh key
+  tags: [ install, ssh ]
   copy:
     src: "{{ source_key }}"
     dest: "{{ dest_key }}"
     mode: 0600
     owner: "{{ lookup('env', 'USER') }}"
-  tags:
-    - ssh
-    - emanote
+
 - name: Install ssh key public
+  tags: [ install, ssh ]
   copy:
     src: "{{ source_key }}.pub"
     dest: "{{ dest_key }}.pub"
     mode: 0644
     owner: "{{ lookup('env', 'USER') }}"
-  tags:
-    - ssh
-    - emanote

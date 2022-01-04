@@ -1,14 +1,12 @@
 - name: Get list of available exercism.io Binaries
-  tags:
-  - exercism
+  tags: [ install, exercism ]
   uri:
     url: https://api.github.com/repos/exercism/cli/releases/latest
     return_content: true
   register: exercism_latest
 
 - name: "Installing Exercism: {{ exercism_latest.json.tag_name }}"
-  tags:
-  - exercism
+  tags: [ install, exercism ]
   loop: "{{ exercism_latest.json.assets }}"
   when: "'exercism-linux-64bit.tgz' in item.name"
   get_url:
@@ -16,24 +14,22 @@
     dest: "{{ lookup('env', 'HOME') }}"
 
 - name: Extracting Exercism
-  tags:
-  - exercism
+  tags: [ install, exercism ]
   shell: "tar -xf {{ lookup('env', 'HOME') }}/exercism-linux-64bit.tgz -C /usr/local/bin"
 
 - name: Cleanup
-  tags:
-  - exercism
+  tags: [ install, exercism ]
   shell: "rm -r {{ lookup('env', 'HOME') }}/exercism-linux-64bit.tgz"
 
 - name: Configure exercism
   become: yes
   become_user: "{{ lookup('env', 'USER') }}"
-  tags:
-  - exercism
+  tags: [ install, exercism ]
   shell: "exercism configure --token={{ exercism_token }} --workspace={{ lookup('env', 'HOME') }}/personal/exercism"
   register: test
 
 - name: Cloning exercism repo
+  tags: [ install, exercism ]
   become: yes
   become_user: "{{ lookup('env', 'USER') }}"
   ansible.builtin.git:
@@ -44,5 +40,3 @@
     version: master
     accept_hostkey: true
     key_file: "{{ dest_key }}"
-  tags:
-  - exercism

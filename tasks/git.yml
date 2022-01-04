@@ -1,11 +1,11 @@
 - name: Git personal setup email
+  tags: [ install, git ]
   git_config:
     name: user.email
     scope: global
     value: "kylebcaverly@gmail.com"
-  tags:
-  - git-personal
 - name: Git personal setup name
+  tags: [ install, git ]
   git_config:
     name: user.name
     scope: global

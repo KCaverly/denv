@@ -16,14 +16,60 @@
       apt: 
         update_cache: true
       tags:
-        - node
-        - zsh
+        - install
   tasks: 
-  - include: tasks/core.yml
-  - include: tasks/ssh.yml
-  - include: tasks/git.yml
-  - include: tasks/exercism.yml
-  - include: tasks/zsh.yml  
-  - include: tasks/dotfiles.yml
-  - include: tasks/nvim.yml
-  - include: tasks/emanote.yml
+
+  - name: core
+    include_tasks: tasks/core.yml
+    tags:
+      - install
+      - core
+
+  - name: ssh
+    include_tasks: tasks/ssh.yml
+    tags:
+      - install
+      - ssh
+
+  - name: git
+    include_tasks: tasks/git.yml
+    tags:
+      - install
+      - git
+
+  - name: zsh
+    include_tasks: tasks/zsh.yml
+    tags:
+      - install
+      - zsh
+    
+  - name: .dotfiles
+    include_tasks: tasks/dotfiles.yml
+    tags:
+      - install
+      - dotfiles
+
+  - name: node
+    include_tasks: tasks/node.yml
+    tags:
+      - install
+      - node
+
+  - name: nvim
+    include_tasks: tasks/nvim.yml
+    tags:
+      - install
+      - nvim
+
+  - name: exercism.io
+    include_tasks: tasks/exercism.yml
+    tags:
+      - install
+      - exercism
+
+  - name: emanote
+    include_tasks: tasks/emanote.yml
+    tags:
+      - install
+      - emanote
+

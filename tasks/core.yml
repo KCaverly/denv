@@ -1,6 +1,5 @@
 - name: Install core utils
+  tags: [ install, core ]
   become: yes
   apt:
-    name: ["unzip"]
-  tags:
-    - exercism
+    name: ["unzip", "stow"]

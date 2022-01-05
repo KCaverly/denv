@@ -9,3 +9,7 @@
 - name: Python | Install pyright
   tags: [ install, python, lsp ]
   shell: npm install --global pyright
+
+- name: Python | Install pre-commit
+  tags: [ install, python, poetry ]
+  shell: pip install pre-commit

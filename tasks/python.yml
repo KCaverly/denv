@@ -13,3 +13,7 @@
 - name: Python | Install pre-commit
   tags: [ install, python, poetry ]
   shell: pip install pre-commit
+
+- name: Python | Install nltk_data
+  tags: [ install, python ]
+  shell: python -c "import nltk; nltk.download('all', download_dir='/usr/local/share/nltk_data/')"

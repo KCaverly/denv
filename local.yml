@@ -36,6 +36,9 @@
     tags:
       - install
       - python
+      - poetry
+      - pre-commit
+      - nltk
 
   - name: git
     include_tasks: tasks/git.yml

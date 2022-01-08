@@ -93,3 +93,9 @@
     tags:
       - install
       - tools
+
+  - name: courses
+    include_tasks: tasks/courses.yml
+    tags:
+      - courses
+      - georgia_tech

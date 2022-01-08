@@ -2,4 +2,4 @@
   tags: [ install, core ]
   become: yes
   apt:
-    name: ["unzip", "stow"]
+    name: ["unzip", "stow", "curl"]

@@ -1,6 +1,6 @@
 - name: Python | Install python
   tags: [ install, python ]
-  shell: apt install python3 && apt autoremove
+  shell: apt install -y python3 python3-pip python-is-python3 && apt -y autoremove 
 
 - name: Python | Install poetry
   tags: [ install, python, poetry ]
@@ -15,5 +15,5 @@
   shell: pip install pre-commit
 
 - name: Python | Install nltk_data
-  tags: [ install, python, nltk ]
-  shell: python -c "import nltk; nltk.download('all', download_dir='/usr/local/share/nltk_data/')"
+  tags: [ nltk ]
+  shell: pip install nltk && python -c "import nltk; nltk.download('all', download_dir='/usr/local/share/nltk_data/')"

@@ -1,19 +1,27 @@
-- name: Install zsh
+- name: zsh | Install zsh
   tags: [ install, zsh ]
   apt: name=zsh
 
-- name: Change Default Shell to zsh
+- name: zsh | Change Default Shell to zsh
   tags: [ install, zsh ]
   shell: chsh -s $(which zsh)
   register: zsh_output
-  
-- name: Install ohmyzsh
+
+- name: zsh | Remove old ohmyzsh if There
+  tags: [ install, zsh ]
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  shell: rm -rf "{{ lookup('env', 'HOME') }}/.oh-my-zsh"
+
+- name: zsh | Install ohmyzsh
   tags: [ install, zsh ]
   become: yes
   become_user: "{{ lookup('env', 'USER') }}"
   shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer && chmod +x ~/.oh-my-installer && ~/.oh-my-installer
 
-- name: Install zsh-autosuggestions
+- name: zsh | Install zsh-autosuggestions
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
   tags: [ install, zsh ]
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'

@@ -12,3 +12,14 @@
     update: yes
     accept_hostkey: yes
     version: master
+
+- name: neovim | Install emanote.nvim
+  tags: [ install, neovim ]
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.git:
+    repo: 'git@github.com:KCaverly/emanote.nvim.git'
+    dest: "{{ lookup('env', 'HOME') }}/personal/emanote.nvim"
+    update: yes
+    accept_hostkey: yes
+    version: master

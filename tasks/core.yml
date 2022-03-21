@@ -1,5 +1,9 @@
-- name: Install core utils
-  tags: [ install, core ]
-  become: yes
+- name: core | Install core utilities
+  tags: [ linux ]
   apt:
-    name: ["unzip", "stow", "curl"]
+    name: ["libx11-dev", "libxext-dev", "xclip", "stow", "curl", "unzip", "ripgrep", "htop", "poppler-utils", "bzip2", "libreadline-dev", "sqlite", "tmux"] 
+
+- name: core | Install ueberzug
+  tags: [ linux ]
+  pip:
+    name: ["ueberzug"]

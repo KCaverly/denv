@@ -1,3 +1,0 @@
-- name: Tools | Install ripgrep
-  tags: [ install, tools ]
-  shell: apt install -y ripgrep

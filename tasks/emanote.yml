@@ -1,16 +1,16 @@
-- name: Install nix
+- name: emanote | Install nix
   tags: [ install, emanote ]
   become: yes
   become_user: "{{ lookup('env', 'USER') }}"
   shell: "curl -L https://nixos.org/nix/install | sh && chmod +x {{ lookup('env', 'HOME') }}/.nix-profile/etc/profile.d/nix.sh"
 
-- name: Configure nix & Install Emanote
+- name: emanote | Configure nix & Install Emanote
   tags: [ install, emanote ]
   become: yes
   become_user: "{{ lookup('env', 'USER') }}"
   shell: ". {{ lookup('env', 'HOME') }}/.nix-profile/etc/profile.d/nix.sh && nix-env -if https://github.com/srid/emanote/archive/refs/heads/master.tar.gz"
 
-- name: Move emanote to usr/local/bin
+- name: emanote | Move emanote to usr/local/bin
   tags: [ install, emanote ]
   copy:
     src: "{{ lookup('env', 'HOME') }}/.nix-profile/bin/emanote"
@@ -18,7 +18,7 @@
     owner: "{{ lookup('env', 'USER') }}"
     mode: +x
 
-- name: Clone Knowledge Base
+- name: emanote | Clone Knowledge Base
   tags: [ install, emanote ]
   become: yes
   become_user: "{{ lookup('env', 'USER') }}"

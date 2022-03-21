@@ -1,8 +1,8 @@
-- name: Install Neovim
+- name: neovim | Install Neovim Nightly
   tags: [ install, neovim ]
   shell: "add-apt-repository ppa:neovim-ppa/unstable && sudo apt-get update && sudo apt-get install -y neovim"
 
-- name: Install Packer
+- name: neovim | Install Packer
   tags: [ install, neovim ]
   become: yes
   become_user: "{{ lookup('env', 'USER') }}"
@@ -13,13 +13,12 @@
     accept_hostkey: yes
     version: master
 
-- name: neovim | Install emanote.nvim
+- name: neovim | Install pyright
+  tags: [ install, neovim ]
+  shell: npm install --global pyright
+
+- name: neovim | Install rust-analyzer
   tags: [ install, neovim ]
   become: yes
   become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.git:
-    repo: 'git@github.com:KCaverly/emanote.nvim.git'
-    dest: "{{ lookup('env', 'HOME') }}/personal/emanote.nvim"
-    update: yes
-    accept_hostkey: yes
-    version: master
+  shell: "mkdir -p ~/.local/bin && curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer && chmod +x ~/.local/bin/rust-analyzer"

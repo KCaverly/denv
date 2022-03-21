@@ -1,19 +1,16 @@
-- name: Python | Install python
+- name: python | Install pyenv
   tags: [ install, python ]
-  shell: apt install -y python3 python3-pip python-is-python3 && apt -y autoremove 
+  ansible.builtin.git:
+    repo: 'https://github.com/pyenv/pyenv.git'
+    dest: "{{ lookup('env', 'HOME') }}/.pyenv"
+    recursive: true
+    update: yes
+    version: master
 
-- name: Python | Install poetry
-  tags: [ install, python, poetry ]
+- name: python | Install poetry
+  tags: [ install, python ]
   shell: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
-- name: Python | Install pyright
-  tags: [ install, python, lsp ]
-  shell: npm install --global pyright
-
-- name: Python | Install pre-commit
-  tags: [ install, python, poetry ]
+- name: python | Install pre-commit
+  tags: [ install, python ]
   shell: pip install pre-commit
-
-- name: Python | Install nltk_data
-  tags: [ nltk ]
-  shell: pip install nltk && python -c "import nltk; nltk.download('all', download_dir='/usr/local/share/nltk_data/')"

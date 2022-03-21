@@ -1,14 +1,14 @@
-- name: Install node
+- name: node | Install node and npm
   tags: [ install, node ]
   apt:
     name: ['nodejs', 'npm']
       
-- name: Install n
+- name: node | Install n
   tags: [ install, node ]
   npm: 
     name: n
     global: true
 
-- name: Install node version 14
+- name: node | Install node version 14
   tags: [ install, node ]
   shell: n 14

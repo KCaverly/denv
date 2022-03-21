@@ -1,6 +1,5 @@
 - hosts: localhost
   vars:
-    source_key: "./.ssh/id_rsa"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
     exercism_token: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -25,26 +24,17 @@
       - install
       - core
 
-  - name: ssh
-    include_tasks: tasks/ssh.yml
-    tags:
-      - install
-      - ssh
-
-  - name: python
-    include_tasks: tasks/python.yml
-    tags:
-      - install
-      - python
-      - poetry
-      - pre-commit
-      - nltk
-
   - name: git
     include_tasks: tasks/git.yml
     tags:
       - install
       - git
+
+  - name: dotfiles
+    include_tasks: tasks/dotfiles.yml
+    tags:
+      - install
+      - dotfiles
 
   - name: zsh
     include_tasks: tasks/zsh.yml
@@ -52,23 +42,11 @@
       - install
       - zsh
     
-  - name: .dotfiles
-    include_tasks: tasks/dotfiles.yml
+  - name: python
+    include_tasks: tasks/python.yml
     tags:
       - install
-      - dotfiles
-
-  - name: node
-    include_tasks: tasks/node.yml
-    tags:
-      - install
-      - node
-
-  - name: nvim
-    include_tasks: tasks/nvim.yml
-    tags:
-      - install
-      - nvim
+      - python
 
   - name: rust
     include_tasks: tasks/rust.yml
@@ -76,11 +54,17 @@
       - install
       - rust
 
-  - name: exercism.io
-    include_tasks: tasks/exercism.yml
+  - name: node
+    include_tasks: tasks/node.yml
     tags:
       - install
-      - exercism
+      - node
+
+  - name: neovim
+    include_tasks: tasks/neovim.yml
+    tags:
+      - install
+      - neovim
 
   - name: emanote
     include_tasks: tasks/emanote.yml
@@ -88,14 +72,14 @@
       - install
       - emanote
 
-  - name: tools
-    include_tasks: tasks/tools.yml
+  - name: exercism.io
+    include_tasks: tasks/exercism.yml
     tags:
       - install
-      - tools
+      - exercism
 
-  - name: courses
-    include_tasks: tasks/courses.yml
+  - name: projects
+    include_tasks: tasks/projects.yml
     tags:
-      - courses
-      - georgia_tech
+      - install
+      - projects

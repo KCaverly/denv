@@ -1,0 +1,22 @@
+- name: projects | Install emanote.nvim
+  tags: [ install, projects ]
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.git:
+    repo: 'git@github.com:KCaverly/emanote.nvim.git'
+    dest: "{{ lookup('env', 'HOME') }}/personal/emanote.nvim"
+    update: yes
+    accept_hostkey: yes
+    version: main
+
+- name: projects | Install poet.nvim
+  tags: [ install, projects ]
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.git:
+    repo: 'git@github.com:KCaverly/poet.nvim.git'
+    dest: "{{ lookup('env', 'HOME') }}/personal/poet.nvim"
+    update: yes
+    accept_hostkey: yes
+    version: main
+
